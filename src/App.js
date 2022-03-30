@@ -5,6 +5,8 @@ import Home from './components/Home'
 import Admin from './components/Admin'
 import {HashRouter as Router, Routes, Route, Link, useParams} from 'react-router-dom'
 import Genres from "./components/Genres";
+import Genre from "./components/Genre";
+import Game from "./components/Game";
 
 function App() {
     return (<Router>
@@ -38,9 +40,9 @@ function App() {
                     <Routes>
                         <Route path="/games/:id" element={<Game/>}/>
                         <Route path="/games" element={<Games/>}/>
-                        <Route exact path="/by-genre" element={<GenrePage/>}/>
-                        <Route exact path="/by-genre/adventure" element={<Genres title={`Adventure`}/>}/>
-                        <Route exact path="/by-genre/action" element={<Genres title={`Action`}/>}/>
+                        <Route exact path="/by-genre" element={<Genres/>}/>
+                        <Route exact path="/by-genre/adventure" element={<Genre title={`Adventure`}/>}/>
+                        <Route exact path="/by-genre/action" element={<Genre title={`Action`}/>}/>
                         <Route path="/admin" element={<Admin/>}/>
                         <Route path="/" element={<Home/>}/>
                     </Routes>
@@ -51,24 +53,3 @@ function App() {
 }
 
 export default App;
-
-function Game() {
-    let {id} = useParams();
-    return <h2> Game id {id}</h2>
-}
-
-function GenrePage() {
-    return (
-        <div>
-            <h2>Genres</h2>
-            <ul>
-                <li>
-                    <Link to='adventure'>Adventure</Link>
-                </li>
-                <li>
-                    <Link to='action'>Action</Link>
-                </li>
-            </ul>
-        </div>
-    )
-}
