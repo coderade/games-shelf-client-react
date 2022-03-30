@@ -3,7 +3,7 @@ import React, {Fragment} from 'react'
 import Games from './components/Games'
 import Home from './components/Home'
 import Admin from './components/Admin'
-import {HashRouter as Router, Routes, Route, Link} from 'react-router-dom'
+import {HashRouter as Router, Routes, Route, Link, useParams} from 'react-router-dom'
 
 function App() {
     return (
@@ -33,7 +33,9 @@ function App() {
                     </div>
                     <div className="col-md-10">
                       <Routes>
-                        <Route path="/games" element={<Games/>} />
+                          <Route path="/games/:id" element={<Game/>} >
+                          </Route>
+                        <Route path="/games/" element={<Games/>} />
                         <Route path="/admin" element={<Admin/>} />
                         <Route path="/" element={<Home/>} />
                       </Routes>
@@ -44,3 +46,8 @@ function App() {
 }
 
 export default App;
+
+function Game(){
+    let { id } = useParams();
+    return <h2> Game id {id}</h2>
+}
