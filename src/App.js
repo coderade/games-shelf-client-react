@@ -1,5 +1,8 @@
 import './App.css';
 import React, {Fragment} from 'react'
+import Games from './components/Games'
+import Home from './components/Home'
+import Admin from './components/Admin'
 import {HashRouter as Router, Routes, Route, Link} from 'react-router-dom'
 
 function App() {
@@ -38,18 +41,6 @@ function App() {
                 </div>
             </div>
         </Router>);
-}
-
-function Home(){
-  return <h2>Home</h2>
-}
-
-function Games(){
-  return <h2>Games</h2>
-}
-
-function Admin(){
-  return <h2>Admin</h2>
 }
 
 export default App;
