@@ -1,12 +1,12 @@
 import './App.css';
-import React, {Fragment} from 'react'
-import Games from './components/Games'
+import React from 'react'
+import Games from './components/Game/Games'
 import Home from './components/Home'
-import Admin from './components/Admin'
-import {HashRouter as Router, Routes, Route, Link, useParams} from 'react-router-dom'
-import Genres from "./components/Genres";
-import Genre from "./components/Genre";
-import Game from "./components/Game";
+import Admin from './components/Admin/Admin'
+import {HashRouter as Router, Routes, Route, Link} from 'react-router-dom'
+import Genres from "./components/Genre/Genres";
+import Genre from "./components/Genre/Genre";
+import Game from "./components/Game/Game";
 
 function App() {
     return (<Router>
@@ -15,7 +15,7 @@ function App() {
                 <h1 className="mt-3">
                     Go Play a Game!
                 </h1>
-                <hr className="mb-3"></hr>
+                <hr className="mb-3"/>
             </div>
             <div className="row">
                 <div className="col-md-2">
