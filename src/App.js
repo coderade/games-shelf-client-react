@@ -4,9 +4,11 @@ import Games from './components/Game/Games'
 import Home from './components/Home'
 import Admin from './components/Admin/Admin'
 import {HashRouter as Router, Routes, Route, Link} from 'react-router-dom'
-import Genres from "./components/Genre/Genres";
-import Genre from "./components/Genre/Genre";
+import Genres from "./components/Genre/Genre";
+import Genre from "./components/Genre/Genres";
 import Game from "./components/Game/Game";
+import Platform from "./components/Platforms/Platform";
+import Platforms from "./components/Platforms/Platforms";
 
 function App() {
     return (<Router>
@@ -31,6 +33,9 @@ function App() {
                                 <Link to="/by-genre">Genres </Link>
                             </li>
                             <li className="list-group-item">
+                                <Link to="/platforms">Platforms </Link>
+                            </li>
+                            <li className="list-group-item">
                                 <Link to="/admin">Manage Games </Link>
                             </li>
                         </ul>
@@ -43,6 +48,7 @@ function App() {
                         <Route exact path="/by-genre" element={<Genres/>}/>
                         <Route exact path="/by-genre/adventure" element={<Genre title={`Adventure`}/>}/>
                         <Route exact path="/by-genre/action" element={<Genre title={`Action`}/>}/>
+                        <Route exact path="/platforms" element={<Platforms/>}/>
                         <Route path="/admin" element={<Admin/>}/>
                         <Route path="/" element={<Home/>}/>
                     </Routes>
