@@ -11,7 +11,7 @@ export default class Genres extends Component {
         ShelfService.getGenres()
             .then(result => {
                 this.setState({
-                    game: result.game, isLoaded: true
+                    genres: result.genres, isLoaded: true
                 })
             })
             .catch(err => {

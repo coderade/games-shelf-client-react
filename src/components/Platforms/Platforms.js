@@ -11,7 +11,7 @@ export default class Platforms extends Component {
         ShelfService.getPlatforms()
             .then(result => {
                 this.setState({
-                    game: result.game, isLoaded: true
+                    platforms: result.platforms, isLoaded: true
                 })
             })
             .catch(err => {
