@@ -4,9 +4,14 @@ export default class ShelfService {
     static getAllGames() {
         return new Promise((resolve, reject) => {
             fetch(`${API_DOMAIN}/games`)
-                .then(response => response.json())
-                .then(json => resolve(json))
-                .catch(err => reject(err))
+                .then(response => {
+                    if (!response.ok){
+                        reject(response)
+                    }
+                    else{
+                        response.json().then(json => resolve(json))
+                    }
+                })
         })
 
     }
