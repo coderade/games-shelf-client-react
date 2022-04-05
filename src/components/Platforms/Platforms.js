@@ -1,20 +1,43 @@
 import React, {Component, Fragment} from 'react'
-import { Link} from 'react-router-dom'
+import {Link} from "react-router-dom";
+import ShelfService from "../../services/ShelfService";
 
 export default class Platforms extends Component {
+    state = {
+        platforms: [], isLoaded: false, error: null
+    }
+
+    componentDidMount() {
+        ShelfService.getPlatforms()
+            .then(result => {
+                this.setState({
+                    game: result.game, isLoaded: true
+                })
+            })
+            .catch(err => {
+                const errorMessage = `Error loading platforms: ${err.status} - ${err.statusText}`;
+                this.setState({error: errorMessage, isLoaded: true})
+            })
+    }
+
     render() {
-        return (
-            <div>
-                <h2>Platforms</h2>
+        const {platforms, isLoaded, error} = this.state;
+
+        if (error) {
+            return <div className="error-message">{error}</div>
+        } else if (!isLoaded) {
+            return <p>Loading...</p>
+        } else {
+            return (<Fragment>
+                <h2>Genres</h2>
                 <ul>
-                    <li>
-                        <Link to='n64'>Nintendo 64</Link>
-                    </li>
-                    <li>
-                        <Link to='ps1'>PS1</Link>
-                    </li>
+                    {platforms.map(platform => (<li key={platform.id}>
+                        <Link to={`/platforms/${platform.id}`}>
+                            {platform.name}
+                        </Link>
+                    </li>))}
                 </ul>
-            </div>
-        )
+            </Fragment>)
+        }
     }
 }

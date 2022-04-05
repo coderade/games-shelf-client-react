@@ -28,7 +28,34 @@ export default class ShelfService {
                     }
                 })
         })
+    }
 
+    static getGenres() {
+        return new Promise((resolve, reject) => {
+            fetch(`${API_DOMAIN}/genres`)
+                .then(response => {
+                    if (!response.ok){
+                        reject(response)
+                    }
+                    else{
+                        response.json().then(json => resolve(json))
+                    }
+                })
+        })
+    }
+
+    static getPlatforms() {
+        return new Promise((resolve, reject) => {
+            fetch(`${API_DOMAIN}/platforms`)
+                .then(response => {
+                    if (!response.ok){
+                        reject(response)
+                    }
+                    else{
+                        response.json().then(json => resolve(json))
+                    }
+                })
+        })
     }
 }
 
