@@ -11,11 +11,10 @@ export default class Games extends Component {
 
     componentDidMount() {
         ShelfService.getAllGames()
-            .then(result => {
+            .then(result =>{
                 this.setState({
                     games: result.games, isLoaded: true
-                })
-            })
+                })})
             .catch(err => {
                 const errorMessage = `Error loading games: ${err.status} - ${err.statusText}`;
                 this.setState({error: errorMessage, isLoaded: true})
@@ -24,9 +23,10 @@ export default class Games extends Component {
 
     render() {
         const {games, isLoaded, error} = this.state;
-        if (error) {
+        if(error){
             return <div className="error-message">{error}</div>
-        } else if (!isLoaded) {
+        }
+        else if (!isLoaded) {
             return <p>Loading...</p>
         } else {
             return (<Fragment>

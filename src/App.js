@@ -43,7 +43,7 @@ function App() {
                 </div>
                 <div className="col-md-10">
                     <Routes>
-                        <Route path="/games/:id" element={<Game/>}/>
+                        <Route path="/games/:id" element={<Game id={':id'}/>}/>
                         <Route path="/games" element={<Games/>}/>
                         <Route exact path="/by-genre" element={<Genres/>}/>
                         <Route exact path="/by-genre/adventure" element={<Genre title={`Adventure`}/>}/>
