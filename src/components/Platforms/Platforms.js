@@ -32,7 +32,7 @@ export default class Platforms extends Component {
                 <h2>Genres</h2>
                 <ul>
                     {platforms.map(platform => (<li key={platform.id}>
-                        <Link to={`/platforms/${platform.id}`}>
+                        <Link to={`/platforms/${platform.id}`} state={{platformName: platform.name}}>
                             {platform.name}
                         </Link>
                     </li>))}

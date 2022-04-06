@@ -1,10 +1,10 @@
 import React, {Component, Fragment} from "react";
 import ShelfService from "../../services/ShelfService";
-import {Link, useParams} from "react-router-dom"
+import {Link, useLocation, useParams} from "react-router-dom"
 
 class Platform extends Component {
     state = {
-        games: [], isLoaded: false, error: null
+        games: [], platformName: '', isLoaded: false, error: null
     }
 
     componentDidMount() {
@@ -12,7 +12,7 @@ class Platform extends Component {
         ShelfService.getAllGames(null, platformId)
             .then(result => {
                 this.setState({
-                    games: result.games, isLoaded: true
+                    games: result.games, isLoaded: true, platformName: this.props.location.state.platformName
                 })
             })
             .catch(err => {
@@ -22,7 +22,7 @@ class Platform extends Component {
     }
 
     render() {
-        let {games, isLoaded, error} = this.state;
+        let {games, isLoaded, platformName, error} = this.state;
         if(!games) games =[];
 
         if (error) {
@@ -31,7 +31,7 @@ class Platform extends Component {
             return <p>Loading...</p>
         } else {
             return (<Fragment>
-                <h2>Platform: </h2>
+                <h2>Platform: {platformName} </h2>
                 <div className="list-group">
                     {games.map(game => (
                         <Link to={`/games/${game.id}`} className="list-group-item list-group-item-action" key={game.id}>
@@ -48,7 +48,8 @@ class Platform extends Component {
 function withRouter(Component) {
     function ComponentWithRouter(props) {
         let params = useParams()
-        return <Component {...props} params={params} />
+        const location = useLocation();
+        return <Component {...props} params={params} location={location} />
     }
     return ComponentWithRouter
 }
