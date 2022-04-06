@@ -16,7 +16,7 @@ export default class Games extends Component {
                     games: result.games, isLoaded: true
                 })})
             .catch(err => {
-                const errorMessage = `Error loading games: ${err.status} - ${err.statusText}`;
+                const errorMessage = `Error loading games: ${err}`;
                 this.setState({error: errorMessage, isLoaded: true})
             })
     }

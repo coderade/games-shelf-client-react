@@ -1,60 +1,55 @@
+import axios from 'axios';
+
 const API_DOMAIN = "http://localhost:4000/v1";
 
 export default class ShelfService {
-    static getAllGames() {
+    static getAllGames(genreId, platformId) {
+
+        const params = {};
+        if (platformId) params.platform_id = platformId
+        if (genreId) params.genre_id = platformId
+
         return new Promise((resolve, reject) => {
-            fetch(`${API_DOMAIN}/games`)
+            axios.get(`${API_DOMAIN}/games`, {params: params})
                 .then(response => {
-                    if (!response.ok){
-                        reject(response)
-                    }
-                    else{
-                        response.json().then(json => resolve(json))
-                    }
-                })
+                    resolve(response.data)
+                }).catch(err => {
+                reject(err)
+            })
         })
 
     }
 
     static getGame(gameId) {
         return new Promise((resolve, reject) => {
-            fetch(`${API_DOMAIN}/games/${gameId}`)
+            axios.get(`${API_DOMAIN}/games/${gameId}`)
                 .then(response => {
-                    if (!response.ok){
-                        reject(response)
-                    }
-                    else{
-                        response.json().then(json => resolve(json))
-                    }
-                })
+                    resolve(response.data)
+                }).catch(err => {
+                reject(err)
+            })
         })
     }
 
     static getGenres() {
         return new Promise((resolve, reject) => {
-            fetch(`${API_DOMAIN}/genres`)
+            axios.get(`${API_DOMAIN}/genres`)
                 .then(response => {
-                    if (!response.ok){
-                        reject(response)
-                    }
-                    else{
-                        response.json().then(json => resolve(json))
-                    }
-                })
+                    resolve(response.data)
+                }).catch(err => {
+                reject(err)
+            })
         })
     }
 
     static getPlatforms() {
         return new Promise((resolve, reject) => {
-            fetch(`${API_DOMAIN}/platforms`)
+            axios.get(`${API_DOMAIN}/platforms`)
                 .then(response => {
-                    if (!response.ok){
-                        reject(response)
-                    }
-                    else{
-                        response.json().then(json => resolve(json))
-                    }
-                })
+                    resolve(response.data)
+                }).catch(err => {
+                reject(err)
+            })
         })
     }
 }

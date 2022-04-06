@@ -16,7 +16,7 @@ class Game extends Component {
                 })
             })
             .catch(err => {
-                const errorMessage = `Error loading games: ${err.status} - ${err.statusText}`;
+                const errorMessage = `Error loading games: ${err}`;
                 this.setState({error: errorMessage, isLoaded: true})
             })
     }
