@@ -8,6 +8,7 @@ import Genres from "./components/Genre/Genres";
 import Genre from "./components/Genre/Genre";
 import Game from "./components/Game/Game";
 import Platforms from "./components/Platforms/Platforms";
+import Platform from "./components/Platforms/Platform";
 
 function App() {
     return (<Router>
@@ -47,6 +48,7 @@ function App() {
                         <Route path="/genres" element={<Genres/>}/>
                         <Route path="/genres/:id" element={<Genre/>}/>
                         <Route path="/platforms" element={<Platforms/>}/>
+                        <Route path="/platforms/:id" element={<Platform/>}/>
                         <Route path="/admin" element={<Admin/>}/>
                         <Route path="/" element={<Home/>}/>
                     </Routes>

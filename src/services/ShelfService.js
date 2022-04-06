@@ -6,8 +6,9 @@ export default class ShelfService {
     static getAllGames(genreId, platformId) {
 
         const params = {};
+
+        if (genreId) params.genre_id = genreId
         if (platformId) params.platform_id = platformId
-        if (genreId) params.genre_id = platformId
 
         return new Promise((resolve, reject) => {
             axios.get(`${API_DOMAIN}/games`, {params: params})
