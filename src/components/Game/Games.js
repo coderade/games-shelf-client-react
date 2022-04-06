@@ -31,13 +31,13 @@ export default class Games extends Component {
         } else {
             return (<Fragment>
                 <h2> Choose a game </h2>
-                <ul>
-                    {games.map(game => (<li key={game.id}>
-                        <Link to={`/games/${game.id}`}>
+                <div className="list-group">
+                    {games.map(game => (
+                        <Link key={game.id} to={`/games/${game.id}`} className="list-group-item list-group-item-action">
                             {game.title}
                         </Link>
-                    </li>))}
-                </ul>
+                    ))}
+                </div>
             </Fragment>);
         }
     }

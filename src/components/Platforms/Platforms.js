@@ -30,13 +30,13 @@ export default class Platforms extends Component {
         } else {
             return (<Fragment>
                 <h2>Genres</h2>
-                <ul>
-                    {platforms.map(platform => (<li key={platform.id}>
-                        <Link to={`/platforms/${platform.id}`} state={{platformName: platform.name}}>
+                <div>
+                    {platforms.map(platform => (
+                        <Link key={platform.id} to={`/platforms/${platform.id}`} state={{platformName: platform.name}}
+                              className="list-group-item list-group-item-action">
                             {platform.name}
-                        </Link>
-                    </li>))}
-                </ul>
+                        </Link>))}
+                </div>
             </Fragment>)
         }
     }
