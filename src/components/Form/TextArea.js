@@ -5,9 +5,9 @@ const TextArea = (props) => {
         <label htmlFor={props.name} className="form-label">
             {props.title}
         </label>
-        <textarea rows="3" className="form-control" name={props.name}
-                  id={props.name} value={props.value}
-                  onChange={props.handleChange}/>
+        <textarea rows="3" className="form-control"
+                  id={props.name} name={props.name} value={props.value}
+                  onChange={props.onChange}/>
     </div>)
 }
 

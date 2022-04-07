@@ -1,15 +1,12 @@
 import React, {Component, Fragment} from 'react'
 import "./EditGame.css"
-import game from "../../Game/Game";
-import Input from "../../form/Input";
-import TextArea from "../../form/TextArea";
-import InputNumber from "../../form/InputNumber";
+import Input from "../../Form/Input";
+import TextArea from "../../Form/TextArea";
+import InputNumber from "../../Form/InputNumber";
+import {useParams} from "react-router-dom";
+import ShelfService from "../../../services/ShelfService";
 
-export default class EditGame extends Component {
-    state = {
-        game: {}, isLoaded: false, error: null
-    }
-
+class EditGame extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -22,23 +19,21 @@ export default class EditGame extends Component {
         this.handleSubmit = this.handleSubmit.bind(this)
     }
 
-    handleSubmit = (evt) => {
-        console.log("Form was submitted")
-        evt.preventDefault()
-    }
-
-    handleChange = (evt) => {
-        const value = evt.target.value;
-        const name = evt.target.name;
-        this.setState(prevState => ({
-            game: {
-                ...prevState.game, [name]: value
-            }
-        }))
-    }
-
     componentDidMount() {
-        this.setState()
+        const gameId = this.props.params.id;
+
+        if(gameId){
+            ShelfService.getGame(gameId)
+                .then(result => {
+                    this.setState({
+                        game: result.game, isLoaded: true
+                    })
+                })
+                .catch(err => {
+                    const errorMessage = `Error loading games: ${err}`;
+                    this.setState({error: errorMessage, isLoaded: true})
+                })
+        }
     }
 
     render() {
@@ -64,7 +59,6 @@ export default class EditGame extends Component {
                                                                                     value={value}>{value}</option>)}
                     </select>
                 </div>
-
                 <button className="btn btn-primary">Save</button>
             </form>
             <div className="mt-3">
@@ -72,4 +66,32 @@ export default class EditGame extends Component {
             </div>
         </Fragment>)
     }
+
+    handleSubmit = (evt) => {
+        console.log("Form was submitted")
+        evt.preventDefault()
+    }
+
+    handleChange = (evt) => {
+        const value = evt.target.value;
+        const name = evt.target.name;
+        this.setState(prevState => ({
+            game: {
+                ...prevState.game, [name]: value
+            }
+        }))
+    }
+
+
+
 }
+
+function withRouter(Component) {
+    function ComponentWithRouter(props) {
+        let params = useParams()
+        return <Component {...props} params={params} />
+    }
+    return ComponentWithRouter
+}
+
+export default withRouter(EditGame);

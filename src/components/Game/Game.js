@@ -1,8 +1,14 @@
-import React, {Component, Fragment} from "react";
+import React, {Component,  Fragment} from "react";
 import ShelfService from "../../services/ShelfService";
-import { useParams } from "react-router-dom"
+import {useNavigate, useParams} from "react-router-dom"
 
 class Game extends Component {
+
+    routeChange = () =>{
+        let path = `/admin/games/edit/${this.state.game.id}`;
+        this.props.navigate(path);
+    }
+
     state = {
         game: {}, isLoaded: false, error: null
     }
@@ -62,6 +68,7 @@ class Game extends Component {
                     </tr>
                     </tbody>
                 </table>
+                <button className="btn btn-primary" onClick={this.routeChange}>Edit</button>
             </Fragment>);
         }
     }
@@ -70,7 +77,8 @@ class Game extends Component {
 function withRouter(Component) {
     function ComponentWithRouter(props) {
         let params = useParams()
-        return <Component {...props} params={params} />
+        const navigate = useNavigate();
+        return <Component {...props} params={params} navigate={navigate} />
     }
     return ComponentWithRouter
 }
