@@ -1,6 +1,9 @@
 import React, {Component, Fragment} from 'react'
 import "./EditGame.css"
 import game from "../../Game/Game";
+import Input from "../../form/Input";
+import TextArea from "../../form/TextArea";
+import InputNumber from "../../form/InputNumber";
 
 export default class EditGame extends Component {
     state = {
@@ -46,40 +49,15 @@ export default class EditGame extends Component {
             <hr/>
             <form method="post" onSubmit={this.handleSubmit}>
                 <input type="hidden" name="id" id="id" value={game.id} onChange={this.handleChange}/>
-                <div className="mb-3">
-                    <label htmlFor="title" className="form-label">
-                        Title
-                    </label>
-                    <input type="text" className="form-control"
-                           id="title" name="title" value={game.title}
-                           onChange={this.handleChange}/>
-                </div>
-                <div className="mb-3">
-                    <label htmlFor="description" className="form-label">
-                        Description
-                    </label>
-                    <textarea rows="3" className="form-control" id="description" name="description"
-                              value={game.description} onChange={this.handleChange}/>
-                </div>
-                <div className="mb-3">
-                    <label htmlFor="publisher" className="form-label">
-                        Publisher
-                    </label>
-                    <input type="text" className="form-control" id="publisher" name="publisher"
-                           value={game.publisher} onChange={this.handleChange}/>
-                </div>
-                <div className="mb-3">
-                    <label htmlFor="year" className="form-label">
-                       Year
-                    </label>
-                    <input type="number" min="1970" max="2022" className="form-control" id="year" name="year"
-                           maxLength="4" value={game.year} onChange={this.handleChange}/>
-                </div>
+                <Input title="Title" type="text" name="title" value={game.title} onChange={this.handleChange}/>
+                <TextArea title="Description" name="description" value={game.description} onChange={this.handleChange}/>
+                <Input title="Publisher" type="text" name="publisher" value={game.publisher} onChange={this.handleChange}/>
+                <InputNumber title="Year" name="year" value={game.year} onChange={this.handleChange}
+                             min="1970" max="2022" maxLength="4" />
                 <div className="mb-3">
                     <label htmlFor="rating" className="form-label">
                         Rating
                     </label>
-
                     <select className="form-select" value={game.rating} name="rating" onChange={this.handleChange}>
                         <option className="form-select"> Choose...</option>
                         {Array.from({length: 11}, (x, i) => i).map(value => <option key={value} className="form-select"
