@@ -3,6 +3,32 @@ import axios from 'axios';
 const API_DOMAIN = "http://localhost:4000/v1";
 
 export default class ShelfService {
+
+
+    static addGame(data){
+        return new Promise((resolve, reject) => {
+            axios.post(`${API_DOMAIN}/games/add`, data)
+                .then(response => {
+                    resolve(response.data)
+                }).catch(err => {
+                reject(err)
+            })
+        })
+    }
+
+    static editGame(data){
+        return new Promise((resolve, reject) => {
+            axios.put(`${API_DOMAIN}/games/edit/:id`, data)
+                .then(response => {
+                    resolve(response.data)
+                }).catch(err => {
+                reject(err)
+            })
+        })
+    }
+
+
+
     static getAllGames(genreId, platformId) {
 
         const params = {};

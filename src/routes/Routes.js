@@ -6,7 +6,7 @@ import Genre from "../components/Genre/Genre";
 import Platforms from "../components/Platforms/Platforms";
 import Platform from "../components/Platforms/Platform";
 import Admin from "../components/Admin/Admin";
-import EditGame from "../components/Admin/Games/EditGame";
+import EditGame from "../components/Admin/Games/AddEditGame";
 import Home from "../components/Home";
 import React from "react";
 
@@ -19,8 +19,8 @@ const AppRoutes = () => (
         <Route path="/platforms" element={<Platforms/>}/>
         <Route path="/platforms/:id" element={<Platform/>}/>
         <Route path="/admin" element={<Admin/>}/>
-        <Route path="/admin/games/add" element={<EditGame/>}/>
-        <Route path="/admin/games/edit/:id" element={<EditGame/>}/>
+        <Route exact path="/admin/games/add" element={<EditGame/>}/>
+        <Route exact path="/admin/games/edit/:id" element={<EditGame/>}/>
         <Route path="/" element={<Home/>}/>
     </Routes>
 )
