@@ -18,7 +18,18 @@ export default class ShelfService {
 
     static editGame(data){
         return new Promise((resolve, reject) => {
-            axios.put(`${API_DOMAIN}/games/edit/:id`, data)
+            axios.put(`${API_DOMAIN}/games/edit/${data.id}`, data)
+                .then(response => {
+                    resolve(response.data)
+                }).catch(err => {
+                reject(err)
+            })
+        })
+    }
+
+    static deleteGame(id){
+        return new Promise((resolve, reject) => {
+            axios.delete(`${API_DOMAIN}/games/delete/${id}`)
                 .then(response => {
                     resolve(response.data)
                 }).catch(err => {

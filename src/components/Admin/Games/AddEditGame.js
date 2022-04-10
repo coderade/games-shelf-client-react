@@ -3,9 +3,13 @@ import "./AddEditGame.css"
 import Input from "../../Form/Input";
 import TextArea from "../../Form/TextArea";
 import InputNumber from "../../Form/InputNumber";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import ShelfService from "../../../services/ShelfService";
 import FormAlert from "../../Alert/Alert";
+import Modal from "../../Modal/Modal";
+import {confirmAlert} from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css';
+
 
 class AddEditGame extends Component {
 
@@ -83,6 +87,8 @@ class AddEditGame extends Component {
                     </select>
                 </div>
                 <button className="btn btn-primary">Save</button>
+                {isEditing ? <button className="btn btn-danger"
+                                     onClick={() => this.confirmDelete(game)}>Delete</button> : ""}
             </form>
         </Fragment>)
     }
@@ -96,7 +102,7 @@ class AddEditGame extends Component {
             // state has been changed
             if (this.state.initialGame !== this.state.game) {
                 if (this.state.isEditing) {
-                    ShelfService.editGame(payload).then(result => {
+                    ShelfService.editGame(payload).then(_ => {
                         this.setState({
                             alert: {
                                 variant: "success", title: "Success!", message: "Games saved successfully!", show: true
@@ -112,7 +118,7 @@ class AddEditGame extends Component {
                             })
                         })
                 } else {
-                    ShelfService.addGame(payload).then(result => {
+                    ShelfService.addGame(payload).then(_ => {
                         this.setState({
                             alert: {
                                 variant: "success", title: "Success!", message: "Games saved successfully!", show: true
@@ -140,15 +146,45 @@ class AddEditGame extends Component {
 
     }
 
-    useEffect = () => {
-        console.log(this.state, '- Has changed')
-    }
-
     handleChange = (evt) => {
         const value = evt.target.value;
         const name = evt.target.name;
         this.setState(prevState => ({game: {...prevState.game, [name]: value}}))
     }
+
+    confirmDelete = (game) => {
+        confirmAlert({
+            customUI: ({onClose}) => {
+                return (<Modal title={"Delete Game?"}
+                               description={`Are you sure you want to delete the game ${game.title}?`}
+                               onClose={onClose} onClick={() => this.deleteGame(game)}/>);
+            }
+        });
+    }
+
+    deleteGame = (game) => {
+        ShelfService.deleteGame(game.id).then(_ => {
+            this.setState({
+                alert: {
+                    variant: "success",
+                    title: "Success!",
+                    message: `Game ${game.title} deleted successfully!`,
+                    show: true
+                }, isLoaded: true, initialGame: this.state.game
+            })
+            this.props.navigate("/games")
+        })
+            .catch(err => {
+                const errorMessage = `Error deleting the game ${game.title}: ${err}`;
+                this.setState({
+                    alert: {
+                        variant: "danger", title: "Error!", message: errorMessage, show: true
+                    }, isLoaded: true
+                })
+            })
+
+    }
+
 
     hasError = (key) => {
         return this.state.errors.includes(key)
@@ -185,8 +221,9 @@ class AddEditGame extends Component {
 
 function withRouter(Component) {
     function ComponentWithRouter(props) {
-        let params = useParams()
-        return <Component {...props} params={params}/>
+        const params = useParams();
+        const navigate = useNavigate();
+        return <Component {...props} params={params} navigate={navigate}/>
     }
 
     return ComponentWithRouter
