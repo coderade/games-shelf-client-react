@@ -9,6 +9,10 @@ export default class Navbar extends Component {
         this.state = {isLogged: props.isLogged}
     }
 
+    handleSessionChange = (jwt) => {
+        this.props.handleSessionChange(jwt)
+    }
+
     render() {
         let {isLogged} = this.state
         return (<div className="row">
@@ -32,7 +36,7 @@ export default class Navbar extends Component {
                 </Nav>
             </div>
             <div className="col-md-10">
-                <AppRoutes/>
+                <AppRoutes handleSessionChange={this.handleSessionChange}/>
             </div>
         </div>);
     }

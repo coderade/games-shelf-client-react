@@ -15,6 +15,7 @@ export default class App extends Component {
 
     handleSessionChange = (jwt) => {
         this.setState({jwt: jwt})
+
     }
 
     logout = () => {
@@ -22,6 +23,7 @@ export default class App extends Component {
     }
 
     render() {
+        debugger;
         let isLogged = !!this.state.jwt;
 
         return (<Router>
