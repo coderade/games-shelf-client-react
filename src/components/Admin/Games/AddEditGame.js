@@ -18,7 +18,7 @@ class AddEditGame extends Component {
         this.state = {
             game: {
                 id: 0, title: "", description: "", year: 0, publisher: "", rating: 0
-            }, isLoaded: false, error: null, isEditing: false, errors: [], showAlert: false, alert: {
+            }, isLoaded: false, error: null, isEditing: false, errors: [], alert: {
                 show: false, initialGame: {}
             }
         }

@@ -1,33 +1,35 @@
 import {Link} from "react-router-dom";
 import React, {Component} from "react";
 import AppRoutes from "../routes/Routes";
+import {Nav} from "react-bootstrap";
 
 export default class Navbar extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {isLogged: props.isLogged}
+    }
+
     render() {
+        let {isLogged} = this.state
         return (<div className="row">
             <div className="col-md-2">
-                <nav>
-                    <ul className="list-group">
-                        <li className="list-group-item">
-                            <Link to="/">Home</Link>
-                        </li>
-                        <li className="list-group-item">
-                            <Link to="/games">Games </Link>
-                        </li>
-                        <li className="list-group-item">
-                            <Link to="/admin/games/add">Add/Edit Game</Link>
-                        </li>
-                        <li className="list-group-item">
-                            <Link to="/genres">Genres </Link>
-                        </li>
-                        <li className="list-group-item">
-                            <Link to="/platforms">Platforms </Link>
-                        </li>
-                        <li className="list-group-item">
-                            <Link to="/admin">Manage Games </Link>
-                        </li>
-                    </ul>
-                </nav>
+                <Nav defaultActiveKey="/" className="list-group" as="ul">
+                    <Nav.Item as="li">
+                        <Nav.Link eventKey="link-0" href="/" className="list-group-item">Home</Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item as="li">
+                        <Nav.Link eventKey="link-1" href="/games" className="list-group-item">Games</Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item as="li">
+                        <Nav.Link eventKey="link-2" href="/genres" className="list-group-item">Genres</Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item as="li">
+                        <Nav.Link eventKey="link-3" href="/platforms" className="list-group-item">Platforms</Nav.Link>
+                    </Nav.Item>
+                    {isLogged ? <Nav.Item as="li">
+                        <Nav.Link eventKey="link-admin" href="/admin" className="list-group-item">Admin</Nav.Link>
+                    </Nav.Item> : ""}
+                </Nav>
             </div>
             <div className="col-md-10">
                 <AppRoutes/>

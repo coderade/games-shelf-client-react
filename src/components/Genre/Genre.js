@@ -8,7 +8,6 @@ class Genre extends Component {
     }
 
     componentDidMount() {
-        debugger;
         const genreId = this.props.params.id;
         ShelfService.getAllGames(genreId, null)
             .then(result => {

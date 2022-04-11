@@ -9,20 +9,20 @@ import Admin from "../components/Admin/Admin";
 import EditGame from "../components/Admin/Games/AddEditGame";
 import Home from "../components/Home";
 import React from "react";
+import Login from "../components/Login/Login";
 
-const AppRoutes = () => (
-    <Routes>
-        <Route path="/games" element={<Games/>}/>
-        <Route path="/games/:id" element={<Game/>}/>
-        <Route path="/genres" element={<Genres/>}/>
-        <Route path="/genres/:id" element={<Genre/>}/>
-        <Route path="/platforms" element={<Platforms/>}/>
-        <Route path="/platforms/:id" element={<Platform/>}/>
-        <Route path="/admin" element={<Admin/>}/>
-        <Route exact path="/admin/games/add" element={<EditGame/>}/>
-        <Route exact path="/admin/games/edit/:id" element={<EditGame/>}/>
-        <Route path="/" element={<Home/>}/>
-    </Routes>
-)
+const AppRoutes = () => (<Routes>
+    <Route exact path="/login" element={<Login/>}/>
+    <Route path="/games" element={<Games/>}/>
+    <Route path="/games/:id" element={<Game/>}/>
+    <Route path="/genres" element={<Genres/>}/>
+    <Route path="/genres/:id" element={<Genre/>}/>
+    <Route path="/platforms" element={<Platforms/>}/>
+    <Route path="/platforms/:id" element={<Platform/>}/>
+    <Route path="/admin" element={<Admin/>}/>
+    <Route exact path="/admin/games/add" element={<EditGame/>}/>
+    <Route exact path="/admin/games/edit/:id" element={<EditGame/>}/>
+    <Route path="/" element={<Home/>}/>
+</Routes>)
 
 export default AppRoutes;
