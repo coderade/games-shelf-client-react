@@ -73,7 +73,6 @@ class Login extends Component {
     }
 
     handleSessionChange = (evt) => {
-        debugger;
        this.props.handleSessionChange(evt)
     }
 

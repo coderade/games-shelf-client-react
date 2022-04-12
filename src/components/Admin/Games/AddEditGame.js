@@ -19,7 +19,7 @@ class AddEditGame extends Component {
             game: {
                 id: 0, title: "", description: "", year: 0, publisher: "", rating: 0
             }, isLoaded: false, error: null, isEditing: false, errors: [], alert: {
-                show: false, initialGame: {}
+                show: false, initialGame: {}, signed: props.signed
             }
         }
 
@@ -52,7 +52,7 @@ class AddEditGame extends Component {
     }
 
     render() {
-        let {game, isEditing, alert} = this.state
+        let {game, isEditing, alert, signed} = this.state
         return (<Fragment>
             {isEditing ? <h2>Edit Game ID: {game.id}</h2> : <h2> Add Game</h2>}
             {alert.show ? <FormAlert variant={alert.variant}
@@ -87,7 +87,7 @@ class AddEditGame extends Component {
                     </select>
                 </div>
                 <button className="btn btn-primary">Save</button>
-                {isEditing ? <button className="btn btn-danger"
+                {isEditing && signed ? <button className="btn btn-danger"
                                      onClick={() => this.confirmDelete(game)}>Delete</button> : ""}
             </form>
         </Fragment>)

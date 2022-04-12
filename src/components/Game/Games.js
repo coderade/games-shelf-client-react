@@ -5,16 +5,20 @@ import './Games.css'
 
 export default class Games extends Component {
 
-    state = {
-        games: [], isLoaded: false, error: null
+    constructor(props) {
+        super(props);
+        this.state = {
+            games: [], isLoaded: false, error: null
+        }
     }
 
     componentDidMount() {
         ShelfService.getAllGames()
-            .then(result =>{
+            .then(result => {
                 this.setState({
                     games: result.games, isLoaded: true
-                })})
+                })
+            })
             .catch(err => {
                 const errorMessage = `Error loading games: ${err}`;
                 this.setState({error: errorMessage, isLoaded: true})
@@ -23,20 +27,19 @@ export default class Games extends Component {
 
     render() {
         const {games, isLoaded, error} = this.state;
-        if(error){
+
+        if (error) {
             return <div className="error-message">{error}</div>
-        }
-        else if (!isLoaded) {
+        } else if (!isLoaded) {
             return <p>Loading...</p>
         } else {
             return (<Fragment>
                 <h2> Choose a game </h2>
                 <div className="list-group">
                     {games.map(game => (
-                        <Link key={game.id} to={`/games/${game.id}`} className="list-group-item list-group-item-action">
+                        <Link key={game.id} to={`/games/${game.id}`} className="list-group-item list-group-item-action" >
                             {game.title}
-                        </Link>
-                    ))}
+                        </Link>))}
                 </div>
             </Fragment>);
         }

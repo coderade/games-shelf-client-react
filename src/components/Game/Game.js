@@ -4,13 +4,16 @@ import {useNavigate, useParams} from "react-router-dom"
 
 class Game extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            game: {}, isLoaded: false, error: null, signed: props.signed
+        }
+    }
+
     routeChange = () =>{
         let path = `/admin/games/edit/${this.state.game.id}`;
         this.props.navigate(path);
-    }
-
-    state = {
-        game: {}, isLoaded: false, error: null
     }
 
     componentDidMount() {
@@ -28,9 +31,8 @@ class Game extends Component {
     }
 
     render() {
-        const {game, isLoaded, error} = this.state;
+        const {game, isLoaded, error, signed} = this.state;
         if(!game.genres) game.genres = [];
-
 
         if (error) {
             return <div className="error-message">{error}</div>
@@ -68,7 +70,8 @@ class Game extends Component {
                     </tr>
                     </tbody>
                 </table>
-                <button className="btn btn-primary" onClick={this.routeChange}>Edit</button>
+                {signed ? <button className="btn btn-primary" onClick={this.routeChange}>Edit</button> : ""}
+
             </Fragment>);
         }
     }
