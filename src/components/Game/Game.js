@@ -3,13 +3,16 @@ import ShelfService from "../../services/ShelfService";
 import {useNavigate, useParams} from "react-router-dom"
 import {confirmAlert} from "react-confirm-alert";
 import Modal from "../Modal/Modal";
+import FormAlert from "../Alert/Alert";
 
 class Game extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            game: {}, isLoaded: false, error: null, signed: props.signed
+            game: {}, isLoaded: false, error: null, signed: props.signed, alert: {
+                show: false
+            }
         }
     }
 
@@ -26,6 +29,10 @@ class Game extends Component {
                                onClose={onClose} onClick={() => this.deleteGame(game)}/>);
             }
         });
+    }
+
+    showAlert = (status) => {
+        this.setState({alert: {show: status}})
     }
 
     deleteGame = (game) => {
@@ -66,16 +73,18 @@ class Game extends Component {
     }
 
     render() {
-        const {game, isLoaded, error, signed} = this.state;
+        const {game, isLoaded, alert, signed} = this.state;
         if (!game.genres) game.genres = [];
 
-        if (error) {
-            return <div className="error-message">{error}</div>
-        } else if (!isLoaded) {
+        if (!isLoaded) {
             return <p>Loading...</p>
         } else {
             return (<Fragment>
                 <h2>{game.title} ({game.year})</h2>
+                {alert.show ? <FormAlert variant={alert.variant}
+                                         message={alert.message}
+                                         title={alert.title}
+                                         onClose={this.showAlert}/> : ""}
                 <div className="float-start">
                     <small>Rating {game.rating}</small>
                 </div>
@@ -105,7 +114,8 @@ class Game extends Component {
                 </table>
                 {signed ? <div>
                     <button className="btn btn-secondary btn-space" onClick={this.routeChange}>Edit</button>
-                    <button className="btn btn-danger btn-space" onClick={() => this.confirmDelete(game)}>Delete</button>
+                    <button className="btn btn-danger btn-space" onClick={() => this.confirmDelete(game)}>Delete
+                    </button>
                 </div> : ""}
 
             </Fragment>);

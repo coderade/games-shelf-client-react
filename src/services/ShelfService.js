@@ -33,7 +33,7 @@ export default class ShelfService {
                 .then(response => {
                     resolve(response.data)
                 }).catch(err => {
-                reject(err)
+                reject(err.message)
             })
         })
     }

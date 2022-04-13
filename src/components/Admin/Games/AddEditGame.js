@@ -16,8 +16,9 @@ class AddEditGame extends Component {
         this.state = {
             game: {
                 id: 0, title: "", description: "", year: 0, publisher: "", rating: 0
-            }, isLoaded: false, error: null, isEditing: false, errors: [], alert: {
-                show: false, initialGame: {}, signed: props.signed
+            }, isLoaded: false, error: null, isEditing: false, errors: [], signed: props.signed, initialGame: {},
+            alert: {
+                show: false
             }
         }
 
@@ -50,7 +51,7 @@ class AddEditGame extends Component {
     }
 
     render() {
-        let {game, isEditing, alert, signed} = this.state
+        let {game, isEditing, alert} = this.state
         return (<Fragment>
             {isEditing ? <h2>Edit Game ID: {game.id}</h2> : <h2> Add Game</h2>}
             {alert.show ? <FormAlert variant={alert.variant}
