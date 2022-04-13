@@ -49,7 +49,7 @@ class Login extends Component {
                     }, isLoaded: true, token: response.token
                 })
                 this.handleSessionChange(response.token);
-                this.props.navigate("/games")
+                this.props.navigate("/admin")
             })
             .catch(err => {
                 const errorMessage = `Error during Login: ${err}`;

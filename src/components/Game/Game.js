@@ -1,6 +1,8 @@
-import React, {Component,  Fragment} from "react";
+import React, {Component, Fragment} from "react";
 import ShelfService from "../../services/ShelfService";
 import {useNavigate, useParams} from "react-router-dom"
+import {confirmAlert} from "react-confirm-alert";
+import Modal from "../Modal/Modal";
 
 class Game extends Component {
 
@@ -11,9 +13,42 @@ class Game extends Component {
         }
     }
 
-    routeChange = () =>{
+    routeChange = () => {
         let path = `/admin/games/edit/${this.state.game.id}`;
         this.props.navigate(path);
+    }
+
+    confirmDelete = (game) => {
+        confirmAlert({
+            customUI: ({onClose}) => {
+                return (<Modal title={"Delete Game?"}
+                               description={`Are you sure you want to delete the game ${game.title}?`}
+                               onClose={onClose} onClick={() => this.deleteGame(game)}/>);
+            }
+        });
+    }
+
+    deleteGame = (game) => {
+        ShelfService.deleteGame(game.id).then(_ => {
+            this.setState({
+                alert: {
+                    variant: "success",
+                    title: "Success!",
+                    message: `Game ${game.title} deleted successfully!`,
+                    show: true
+                }, isLoaded: true, initialGame: this.state.game
+            })
+            this.props.navigate("/games")
+        })
+            .catch(err => {
+                const errorMessage = `Error deleting the game ${game.title}: ${err}`;
+                this.setState({
+                    alert: {
+                        variant: "danger", title: "Error!", message: errorMessage, show: true
+                    }, isLoaded: true
+                })
+            })
+
     }
 
     componentDidMount() {
@@ -32,7 +67,7 @@ class Game extends Component {
 
     render() {
         const {game, isLoaded, error, signed} = this.state;
-        if(!game.genres) game.genres = [];
+        if (!game.genres) game.genres = [];
 
         if (error) {
             return <div className="error-message">{error}</div>
@@ -45,11 +80,9 @@ class Game extends Component {
                     <small>Rating {game.rating}</small>
                 </div>
                 <div className="float-end">
-                    {game.genres.map((genre, idx) => (
-                        <span className="badge bg-secondary me-1" key={idx}>
+                    {game.genres.map((genre, idx) => (<span className="badge bg-secondary me-1" key={idx}>
                             {genre.name}
-                        </span>
-                    ))}
+                        </span>))}
                 </div>
                 <div className="clearfix"/>
                 <hr/>
@@ -70,7 +103,10 @@ class Game extends Component {
                     </tr>
                     </tbody>
                 </table>
-                {signed ? <button className="btn btn-primary" onClick={this.routeChange}>Edit</button> : ""}
+                {signed ? <div>
+                    <button className="btn btn-secondary btn-space" onClick={this.routeChange}>Edit</button>
+                    <button className="btn btn-danger btn-space" onClick={() => this.confirmDelete(game)}>Delete</button>
+                </div> : ""}
 
             </Fragment>);
         }
@@ -81,8 +117,9 @@ function withRouter(Component) {
     function ComponentWithRouter(props) {
         let params = useParams()
         const navigate = useNavigate();
-        return <Component {...props} params={params} navigate={navigate} />
+        return <Component {...props} params={params} navigate={navigate}/>
     }
+
     return ComponentWithRouter
 }
 

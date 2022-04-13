@@ -6,8 +6,6 @@ import InputNumber from "../../Form/InputNumber";
 import {useNavigate, useParams} from "react-router-dom";
 import ShelfService from "../../../services/ShelfService";
 import FormAlert from "../../Alert/Alert";
-import Modal from "../../Modal/Modal";
-import {confirmAlert} from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css';
 
 
@@ -82,13 +80,12 @@ class AddEditGame extends Component {
                     <select className="form-select" value={game.rating} name="rating"
                             onChange={this.handleChange}>
                         <option className="form-select"> Choose...</option>
-                        {Array.from({length: 11}, (x, i) => i).map(value => <option key={value} className="form-select"
-                                                                                    value={value}>{value}</option>)}
+                        {Array.from({length: 11}, (x, i) => i).map(value =>
+                            <option key={value} className="form-select" value={value}>{value}</option>
+                        )}
                     </select>
                 </div>
                 <button className="btn btn-primary">Save</button>
-                {isEditing && signed ? <button className="btn btn-danger"
-                                     onClick={() => this.confirmDelete(game)}>Delete</button> : ""}
             </form>
         </Fragment>)
     }
@@ -150,39 +147,6 @@ class AddEditGame extends Component {
         const value = evt.target.value;
         const name = evt.target.name;
         this.setState(prevState => ({game: {...prevState.game, [name]: value}}))
-    }
-
-    confirmDelete = (game) => {
-        confirmAlert({
-            customUI: ({onClose}) => {
-                return (<Modal title={"Delete Game?"}
-                               description={`Are you sure you want to delete the game ${game.title}?`}
-                               onClose={onClose} onClick={() => this.deleteGame(game)}/>);
-            }
-        });
-    }
-
-    deleteGame = (game) => {
-        ShelfService.deleteGame(game.id).then(_ => {
-            this.setState({
-                alert: {
-                    variant: "success",
-                    title: "Success!",
-                    message: `Game ${game.title} deleted successfully!`,
-                    show: true
-                }, isLoaded: true, initialGame: this.state.game
-            })
-            this.props.navigate("/games")
-        })
-            .catch(err => {
-                const errorMessage = `Error deleting the game ${game.title}: ${err}`;
-                this.setState({
-                    alert: {
-                        variant: "danger", title: "Error!", message: errorMessage, show: true
-                    }, isLoaded: true
-                })
-            })
-
     }
 
 
