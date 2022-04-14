@@ -1,9 +1,10 @@
 import './App.css';
 import React, {Component} from 'react'
-import {HashRouter as Router, Link} from 'react-router-dom'
-import Navbar from "./components/Navbar";
+import {HashRouter as Router} from 'react-router-dom'
 import {AuthContext} from "./contexts/AuthContext";
+import Navbar from "./components/Navbar";
 import Cookies from 'universal-cookie';
+import LoginMenu from "./components/Login/LoginMenu";
 
 const cookies = new Cookies();
 
@@ -20,23 +21,17 @@ export default class App extends Component {
         this.handleSessionChange(this.handleSessionChange.bind(this))
     }
 
-    handleSessionChange = (token) => {
-        this.setState({session: {token: token, signed: true}})
+    handleSessionChange = (token, signed) => {
+        this.setState({session: {token: token, signed: signed}})
     }
 
     componentDidMount() {
         this.checkSessionStatus();
     }
 
-    logout = () => {
-
-        this.setState({session: {signed: false}})
-        cookies.remove('token', { path: '/' });
-    }
-
     checkSessionStatus = () => {
         const token = cookies.get('token');
-        if(token){
+        if (token) {
             this.setState({session: {signed: true, token: token}})
         }
     }
@@ -53,10 +48,7 @@ export default class App extends Component {
                                 Games Shelf
                             </h1>
                         </div>
-                        <div className="col mt-3 text-end">
-                            {session.signed ? <Link to={"/logout"} onClick={this.logout}>Logout</Link> :
-                                <Link to={"/login"}>Login</Link>}
-                        </div>
+                        <LoginMenu session={session}/>
                         <hr className="mb-3"/>
                     </div>
                     <Navbar/>

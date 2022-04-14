@@ -12,7 +12,7 @@ class Login extends Component {
             },
             token: ""
         }
-        // this.handleSessionChange = props.handleChange;
+
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
     }
@@ -26,14 +26,9 @@ class Login extends Component {
                        onChange={this.handleChange} hasError={this.hasError}/>
                 <Input title="Password" type="password" onChange={this.handleChange}
                        name="password" hasError={this.hasError}/>
-                <hr/>
                 <button className="btn btn-primary">Login</button>
             </form>
         </Fragment>);
-    }
-
-    componentDidMount() {
-
     }
 
     handleSubmit = (evt) => {
@@ -48,7 +43,7 @@ class Login extends Component {
                         variant: "success", title: "Success!", message: "Games saved successfully!", show: true
                     }, isLoaded: true, token: response.token
                 })
-                this.handleSessionChange(response.token);
+                this.handleSessionChange(response.token, true);
                 this.props.navigate("/admin")
             })
             .catch(err => {
@@ -72,8 +67,8 @@ class Login extends Component {
         this.setState(prevState => ({[name]: value}))
     }
 
-    handleSessionChange = (evt) => {
-       this.props.handleSessionChange(evt)
+    handleSessionChange = (token, signed) => {
+       this.props.handleSessionChange(token, signed)
     }
 
 
