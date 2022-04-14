@@ -1,4 +1,6 @@
 import {ShelfApi} from './Api';
+import Cookies from 'universal-cookie';
+const cookies = new Cookies();
 
 export default class AuthService {
 
@@ -6,7 +8,9 @@ export default class AuthService {
         return new Promise((resolve, reject) => {
             ShelfApi.post(`/auth/signin`, data)
                 .then(response => {
-                    ShelfApi.defaults.headers.common['Authorization'] =  `Bearer ${response.data.token}`;
+                    const token = response.data.token;
+                    ShelfApi.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+                    cookies.set('token', token, {path: '/'});
                     resolve(response.data)
                 }).catch(err => {
                 reject(err)

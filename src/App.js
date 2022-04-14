@@ -3,6 +3,9 @@ import React, {Component} from 'react'
 import {HashRouter as Router, Link} from 'react-router-dom'
 import Navbar from "./components/Navbar";
 import {AuthContext} from "./contexts/AuthContext";
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies();
 
 export default class App extends Component {
 
@@ -21,8 +24,21 @@ export default class App extends Component {
         this.setState({session: {token: token, signed: true}})
     }
 
+    componentDidMount() {
+        this.checkSessionStatus();
+    }
+
     logout = () => {
+
         this.setState({session: {signed: false}})
+        cookies.remove('token', { path: '/' });
+    }
+
+    checkSessionStatus = () => {
+        const token = cookies.get('token');
+        if(token){
+            this.setState({session: {signed: true, token: token}})
+        }
     }
 
     render() {
