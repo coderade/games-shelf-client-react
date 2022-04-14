@@ -10,19 +10,24 @@ import AddEditGame from "../components/Admin/Games/AddEditGame";
 import Home from "../components/Home";
 import React from "react";
 import Login from "../components/Login/Login";
+import ProtectedRoutes from "./ProtectedRoute";
 
-const AppRoutes = (props) =>{
+const AppRoutes = (props) => {
     return (<Routes>
         <Route exact path="/login" element={<Login handleSessionChange={props.session.handleSessionChange}/>}/>
-        <Route path="/games" element={<Games/> }/>
+        <Route path="/games" element={<Games/>}/>
         <Route path="/games/:id" element={<Game signed={props.session.signed}/>}/>
         <Route path="/genres" element={<Genres/>}/>
         <Route path="/genres/:id" element={<Genre/>}/>
         <Route path="/platforms" element={<Platforms/>}/>
         <Route path="/platforms/:id" element={<Platform/>}/>
-        <Route path="/admin" element={<Admin/>}/>
-        <Route exact path="/admin/games/add" element={<AddEditGame/>}/>
-        <Route exact path="/admin/games/edit/:id" element={<AddEditGame session={props.session}/>}/>
+
+        <Route path="/" element={<ProtectedRoutes session={props.session}/>}>
+            <Route path="/admin" element={<Admin/>}/>
+            <Route exact path="/admin/games/add" element={<AddEditGame/>}/>
+            <Route exact path="/admin/games/edit/:id" element={<AddEditGame session={props.session}/>}/>
+        </Route>
+
         <Route path="/" element={<Home/>}/>
     </Routes>)
 }
