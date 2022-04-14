@@ -1,13 +1,9 @@
-import axios from 'axios';
-
-const API_DOMAIN = "http://localhost:4000/v1";
+import {ShelfApi} from './Api';
 
 export default class ShelfService {
-
-
-    static addGame(data){
+    static addGame(data) {
         return new Promise((resolve, reject) => {
-            axios.post(`${API_DOMAIN}/games/add`, data)
+            ShelfApi.post(`/games/add`, data)
                 .then(response => {
                     resolve(response.data)
                 }).catch(err => {
@@ -16,9 +12,9 @@ export default class ShelfService {
         })
     }
 
-    static editGame(data){
+    static editGame(data) {
         return new Promise((resolve, reject) => {
-            axios.put(`${API_DOMAIN}/games/edit/${data.id}`, data)
+            ShelfApi.put(`/games/edit/${data.id}`, data)
                 .then(response => {
                     resolve(response.data)
                 }).catch(err => {
@@ -27,9 +23,9 @@ export default class ShelfService {
         })
     }
 
-    static deleteGame(id){
+    static deleteGame(id) {
         return new Promise((resolve, reject) => {
-            axios.delete(`${API_DOMAIN}/games/delete/${id}`)
+            ShelfApi.delete(`/games/delete/${id}`)
                 .then(response => {
                     resolve(response.data)
                 }).catch(err => {
@@ -39,28 +35,24 @@ export default class ShelfService {
     }
 
 
-
     static getAllGames(genreId, platformId) {
-
         const params = {};
-
         if (genreId) params.genre_id = genreId
         if (platformId) params.platform_id = platformId
 
         return new Promise((resolve, reject) => {
-            axios.get(`${API_DOMAIN}/games`, {params: params})
+            ShelfApi.get(`/games`, {params: params})
                 .then(response => {
                     resolve(response.data)
                 }).catch(err => {
                 reject(err)
             })
         })
-
     }
 
     static getGame(gameId) {
         return new Promise((resolve, reject) => {
-            axios.get(`${API_DOMAIN}/games/${gameId}`)
+            ShelfApi.get(`/games/${gameId}`)
                 .then(response => {
                     resolve(response.data)
                 }).catch(err => {
@@ -71,7 +63,7 @@ export default class ShelfService {
 
     static getGenres() {
         return new Promise((resolve, reject) => {
-            axios.get(`${API_DOMAIN}/genres`)
+            ShelfApi.get(`/genres`)
                 .then(response => {
                     resolve(response.data)
                 }).catch(err => {
@@ -82,7 +74,7 @@ export default class ShelfService {
 
     static getPlatforms() {
         return new Promise((resolve, reject) => {
-            axios.get(`${API_DOMAIN}/platforms`)
+            ShelfApi.get(`/platforms`)
                 .then(response => {
                     resolve(response.data)
                 }).catch(err => {

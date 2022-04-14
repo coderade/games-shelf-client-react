@@ -9,25 +9,25 @@ export default class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            signed: false
+            session: {
+                signed: false, token: ""
+            }
+
         }
         this.handleSessionChange(this.handleSessionChange.bind(this))
     }
 
-    handleSessionChange = (jwt) => {
-        this.setState({jwt: jwt, signed: true})
+    handleSessionChange = (token) => {
+        this.setState({session: {token: token, signed: true}})
     }
 
     logout = () => {
-        this.setState({signed: false})
+        this.setState({session: {signed: false}})
     }
 
     render() {
-        let {signed} = this.state
-
-        const session = {
-            signed: signed, handleSessionChange: this.handleSessionChange
-        }
+        let {session} = this.state
+        session.handleSessionChange = this.handleSessionChange
         return (<AuthContext.Provider value={session}>
             <Router>
                 <div className={"container"}>
@@ -38,7 +38,7 @@ export default class App extends Component {
                             </h1>
                         </div>
                         <div className="col mt-3 text-end">
-                            {signed ? <Link to={"/logout"} onClick={this.logout}>Logout</Link> :
+                            {session.signed ? <Link to={"/logout"} onClick={this.logout}>Logout</Link> :
                                 <Link to={"/login"}>Login</Link>}
                         </div>
                         <hr className="mb-3"/>

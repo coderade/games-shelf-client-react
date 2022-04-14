@@ -1,23 +1,17 @@
-import axios from 'axios';
-
-const API_DOMAIN = "http://localhost:4000/v1";
+import {ShelfApi} from './Api';
 
 export default class AuthService {
 
-    static doLogin(data){
+    static doLogin(data) {
         return new Promise((resolve, reject) => {
-            axios.post(`${API_DOMAIN}/auth/signin`, data)
+            ShelfApi.post(`/auth/signin`, data)
                 .then(response => {
+                    ShelfApi.defaults.headers.common['Authorization'] =  `Bearer ${response.data.token}`;
                     resolve(response.data)
                 }).catch(err => {
                 reject(err)
             })
         })
     }
-
-
-
-
-
 }
 

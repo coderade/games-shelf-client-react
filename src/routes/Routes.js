@@ -22,7 +22,7 @@ const AppRoutes = (props) =>{
         <Route path="/platforms/:id" element={<Platform/>}/>
         <Route path="/admin" element={<Admin/>}/>
         <Route exact path="/admin/games/add" element={<AddEditGame/>}/>
-        <Route exact path="/admin/games/edit/:id" element={<AddEditGame signed={props.session.signed}/>}/>
+        <Route exact path="/admin/games/edit/:id" element={<AddEditGame session={props.session}/>}/>
         <Route path="/" element={<Home/>}/>
     </Routes>)
 }
