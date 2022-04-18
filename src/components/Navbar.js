@@ -23,6 +23,10 @@ export default class Navbar extends Component {
                             <Nav.Link eventKey="link-3" href="/#/platforms"
                                       className="list-group-item">Platforms</Nav.Link>
                         </Nav.Item>
+                        <Nav.Item as="li">
+                            <Nav.Link eventKey="link-graphql" href="/#/graphql"
+                                      className="list-group-item">GraphQL</Nav.Link>
+                        </Nav.Item>
                         {session.signed ? <Nav.Item as="li">
                             <Nav.Link eventKey="link-admin" href="/#/admin"
                                       className="list-group-item">Admin</Nav.Link>

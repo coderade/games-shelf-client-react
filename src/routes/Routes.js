@@ -11,6 +11,7 @@ import Home from "../components/Home";
 import React from "react";
 import Login from "../components/Login/Login";
 import ProtectedRoutes from "./ProtectedRoute";
+import GraphQL from "../components/GraphQL";
 
 const AppRoutes = (props) => {
     return (<Routes>
@@ -21,6 +22,8 @@ const AppRoutes = (props) => {
         <Route path="/genres/:id" element={<Genre/>}/>
         <Route path="/platforms" element={<Platforms/>}/>
         <Route path="/platforms/:id" element={<Platform/>}/>
+
+        <Route path="/graphql" element={<GraphQL/>}/>
 
         <Route path="/" element={<ProtectedRoutes session={props.session}/>}>
             <Route path="/admin" element={<Admin/>}/>
