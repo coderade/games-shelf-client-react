@@ -2,6 +2,7 @@ import React, {Component, Fragment} from "react";
 import {useLocation, useNavigate, useParams} from "react-router-dom"
 import Input from "../Form/Input";
 import AuthService from "../../services/AuthService";
+import FormAlert from "../Alert/Alert";
 
 class Login extends Component {
     constructor(props) {
@@ -9,16 +10,24 @@ class Login extends Component {
         this.state = {
             email: "", password: "", error: null, errors: [], alert: {
                 show: false, initialGame: {}
-            },
-            token: ""
+            }, token: ""
         }
 
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
     }
 
+    showAlert = (status) => {
+        this.setState({alert: {show: status}})
+    }
+
     render() {
+        const {alert} = this.state
         return (<Fragment>
+            {alert.show ? <FormAlert variant={alert.variant}
+                                     message={alert.message}
+                                     title={alert.title}
+                                     onClose={this.showAlert}/> : ""}
             <h2>Login </h2>
             <hr/>
             <form className="pt-3" method="post" onSubmit={this.handleSubmit}>
@@ -46,14 +55,14 @@ class Login extends Component {
                 this.handleSessionChange(response.token, true);
                 this.props.navigate("/admin")
             })
-            .catch(err => {
-                const errorMessage = `Error during Login: ${err}`;
-                this.setState({
-                    alert: {
-                        variant: "danger", title: "Error!", message: errorMessage, show: true
-                    }, isLoaded: true
+                .catch(err => {
+                    const errorMessage = `Error during Login: ${err}`;
+                    this.setState({
+                        alert: {
+                            variant: "danger", title: "Error!", message: errorMessage, show: true
+                        }, isLoaded: true
+                    })
                 })
-            })
         }
     }
 
@@ -68,7 +77,7 @@ class Login extends Component {
     }
 
     handleSessionChange = (token, signed) => {
-       this.props.handleSessionChange(token, signed)
+        this.props.handleSessionChange(token, signed)
     }
 
 

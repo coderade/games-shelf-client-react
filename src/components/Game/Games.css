@@ -1,8 +1,16 @@
 .error-message {
-  color: red;
-  font-weight: bold;
+    color: red;
+    font-weight: bold;
 }
 
 .btn-space {
-  margin-right: 5px;
+    margin-right: 5px;
+}
+
+img {
+    max-width: 100%;
+}
+
+.btn-wrapper {
+    margin-top: 10px
 }

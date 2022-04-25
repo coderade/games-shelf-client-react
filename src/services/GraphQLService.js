@@ -4,7 +4,7 @@ export default class GraphQLService {
 
     static list(data) {
         return new Promise((resolve, reject) => {
-            ShelfApi.post(`/graphql/list`, data)
+            ShelfApi.post(`/graphql`, data)
                 .then(response => {
                     resolve(response.data)
                 }).catch(err => {

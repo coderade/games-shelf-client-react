@@ -80,13 +80,20 @@ class Game extends Component {
             return <p>Loading...</p>
         } else {
             return (<Fragment>
+
+
                 <h2>{game.title} ({game.year})</h2>
                 {alert.show ? <FormAlert variant={alert.variant}
                                          message={alert.message}
                                          title={alert.title}
                                          onClose={this.showAlert}/> : ""}
                 <div className="float-start">
-                    <small>Rating {game.rating}</small>
+                    <small> Rating {game.details.metacritic_url ?
+                        <a href={game.details.metacritic_url}>{game.details.metacritic}</a> :
+                        game.details.metacritic
+                    }
+
+                    </small>
                 </div>
                 <div className="float-end">
                     {game.genres.map((genre, idx) => (<span className="badge bg-secondary me-1" key={idx}>
@@ -112,7 +119,8 @@ class Game extends Component {
                     </tr>
                     </tbody>
                 </table>
-                {signed ? <div>
+                <div className="col-md-10"><img src={game.details.background_image} alt=""/></div>
+                {signed ? <div className="btn-wrapper">
                     <button className="btn btn-secondary btn-space" onClick={this.routeChange}>Edit</button>
                     <button className="btn btn-danger btn-space" onClick={() => this.confirmDelete(game)}>Delete
                     </button>
