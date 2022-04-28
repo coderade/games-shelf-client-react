@@ -1,5 +1,4 @@
 import {Route, Routes} from "react-router-dom";
-import Games from "../components/Game/Games";
 import Game from "../components/Game/Game";
 import Genres from "../components/Genre/Genres";
 import Genre from "../components/Genre/Genre";
@@ -12,6 +11,7 @@ import React from "react";
 import Login from "../components/Login/Login";
 import ProtectedRoutes from "./ProtectedRoute";
 import GraphQL from "../components/GraphQL";
+import Games from "../components/Game/Games";
 
 const AppRoutes = (props) => {
     return (<Routes>
