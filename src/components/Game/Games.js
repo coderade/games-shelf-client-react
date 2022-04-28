@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 import ShelfService from "../../services/ShelfService";
 import './Games.css'
 
-function Games(props) {
+const Games = (props) => {
     const [games, setGames] = useState([])
     const [error, setError] = useState("")
 

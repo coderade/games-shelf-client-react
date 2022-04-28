@@ -1,57 +1,38 @@
-import React, {Component, Fragment} from "react";
+import React, {Fragment, useEffect, useState} from "react";
 import ShelfService from "../../services/ShelfService";
 import {Link, useLocation, useParams} from "react-router-dom"
 
-class Genre extends Component {
-    state = {
-        games: [], genreName: '', isLoaded: false, error: null
-    }
+function Genre  () {
 
-    componentDidMount() {
-        const genreId = this.props.params.id;
-        ShelfService.getAllGames(genreId, null)
+    const location = useLocation();
+    const {id} = useParams()
+    const [games, setGames] = useState([])
+    const [error, setError] = useState("")
+
+
+    useEffect(() => {
+        ShelfService.getAllGames(id, null)
             .then(result => {
-                this.setState({
-                    games: result.games, isLoaded: true, genreName: this.props.location.state.genreName
-                })
+                setGames(result.games)
             })
             .catch(err => {
                 const errorMessage = `Error loading games by genre: ${err}`;
-                this.setState({error: errorMessage, isLoaded: true})
+                setError(errorMessage)
             })
-    }
+    }, [id])
+    if (error) {
+        return <div className="error-message">{error}</div>
+    } else {
+        return (<Fragment>
+            <h2>Genre: {location.state.genreName} </h2>
+            <div className="list-group">
 
-    render() {
-        let {games, isLoaded, genreName, error} = this.state;
-        if(!games) games =[];
-
-        if (error) {
-            return <div className="error-message">{error}</div>
-        } else if (!isLoaded) {
-            return <p>Loading...</p>
-        } else {
-            return (<Fragment>
-                <h2>Genre: {genreName} </h2>
-                <div className="list-group">
-                    {games.map(game => (
-                        <Link to={`/games/${game.id}`} className="list-group-item list-group-item-action" key={game.id}>
-                            {game.title}
-                        </Link>
-                    ))}
-                </div>
-
-            </Fragment>);
-        }
+                {games ? games.map(game => (
+                    <Link to={`/games/${game.id}`} className="list-group-item list-group-item-action" key={game.id}>
+                        {game.title}
+                    </Link>)) : "No games available for the genre"}
+            </div>
+        </Fragment>);
     }
 }
-
-function withRouter(Component) {
-    function ComponentWithRouter(props) {
-        let params = useParams()
-        const location = useLocation();
-        return <Component {...props} params={params} location={location} />
-    }
-    return ComponentWithRouter
-}
-
-export default withRouter(Genre);
+export default Genre;

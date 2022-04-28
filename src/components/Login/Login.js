@@ -3,9 +3,7 @@ import {useLocation, useNavigate, useParams} from "react-router-dom"
 import Input from "../Form/Input";
 import AuthService from "../../services/AuthService";
 import FormAlert from "../Alert/Alert";
-import Cookies from 'universal-cookie';
 
-const cookies = new Cookies();
 
 class Login extends Component {
     constructor(props) {

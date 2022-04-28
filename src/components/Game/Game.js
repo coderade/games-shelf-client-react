@@ -1,15 +1,15 @@
-import React, {Component, Fragment, useEffect, useState} from "react";
+import React, {Fragment, useEffect, useState} from "react";
 import ShelfService from "../../services/ShelfService";
 import {useNavigate, useParams} from "react-router-dom"
 import {confirmAlert} from "react-confirm-alert";
 import Modal from "../Modal/Modal";
 import FormAlert from "../Alert/Alert";
 
-function Game(props) {
+const Game = (props) => {
     const navigate = useNavigate();
     const {id} = useParams()
     const [game, setGame] = useState({})
-    const [error, setError] = useState("")
+    const [, setError] = useState("")
     const [alert, setAlert] = useState({show: false})
 
 
