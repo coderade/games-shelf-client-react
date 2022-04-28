@@ -19,7 +19,7 @@ Some technologies used are:
 - Axios
 - Bootstrap
 
-Backend API developed in Go available here: [games-shelf-api-go](https://github.com/coderade/games-shelf-api-go).
+Backend API developed in Go is available here: [games-shelf-api-go](https://github.com/coderade/games-shelf-api-go).
 
 ## Running the application
 
