@@ -1,7 +1,7 @@
 import {Navigate, Outlet, useLocation} from 'react-router-dom'
 import Home from "../components/Home";
 
-const  ProtectedRoutes=(session) =>{
+const ProtectedRoutes=(session) =>{
     const location = useLocation();
     if(location.pathname === "/"){
         return <Home/>

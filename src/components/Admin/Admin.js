@@ -25,8 +25,6 @@ class Admin extends Component {
             })
     }
 
-
-
     render() {
         const {games} = this.state;
 
