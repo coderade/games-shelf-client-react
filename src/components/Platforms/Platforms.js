@@ -29,7 +29,7 @@ export default class Platforms extends Component {
             return <p>Loading...</p>
         } else {
             return (<Fragment>
-                <h2>Genres</h2>
+                <h2>Platforms</h2>
                 <div>
                     {platforms.map(platform => (
                         <Link key={platform.id} to={`/platforms/${platform.id}`} state={{platformName: platform.name}}

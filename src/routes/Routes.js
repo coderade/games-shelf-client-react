@@ -15,7 +15,7 @@ import GraphQL from "../components/GraphQL";
 
 const AppRoutes = (props) => {
     return (<Routes>
-        <Route exact path="/login" element={<Login handleSessionChange={props.session.handleSessionChange}/>}/>
+        <Route exact path="/login" element={<Login session={props.session}/>}/>
         <Route path="/games" element={<Games/>}/>
         <Route path="/games/:id" element={<Game signed={props.session.signed}/>}/>
         <Route path="/genres" element={<Genres/>}/>
