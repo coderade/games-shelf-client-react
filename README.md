@@ -10,7 +10,8 @@ This application is created in React, and you have the possibilities to:
   [project](https://github.com/coderade/games-shelf-api-go))
 - CRUD of the games, platforms and genres
 - Use GraphQL to search games
-- Work with data received from [RAWG](https://rawg.io/) api, the biggest video game database
+- Work with data received from [RAWG](https://rawg.io/) api, the biggest video game database 
+  - Data as the games images and rating will be got from this API.
 
 Some technologies used are:
 
