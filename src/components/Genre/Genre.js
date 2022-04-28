@@ -3,12 +3,10 @@ import ShelfService from "../../services/ShelfService";
 import {Link, useLocation, useParams} from "react-router-dom"
 
 function Genre  () {
-
     const location = useLocation();
     const {id} = useParams()
     const [games, setGames] = useState([])
     const [error, setError] = useState("")
-
 
     useEffect(() => {
         ShelfService.getAllGames(id, null)

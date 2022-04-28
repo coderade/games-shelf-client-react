@@ -1,46 +1,31 @@
 import {Link, useNavigate} from "react-router-dom";
-import React, {Component} from "react";
+import React from "react";
 import Cookies from 'universal-cookie';
 import {AuthContext} from "../../contexts/AuthContext";
-const cookies = new Cookies();
 
-class LoginMenu extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            session: props.session
-        }
-    }
+const LoginMenu = (props) => {
+    const navigate = useNavigate();
+    const session = props.session
 
-    render() {
-        return (<AuthContext.Consumer>
-            {session => <div className="col mt-3 text-end">
-                {session.signed ? <Link to={"/logout"} onClick={this.logout}>Logout</Link> :
-                    <Link to={"/login"}>Login</Link>}
-            </div>}
-        </AuthContext.Consumer>);
-    }
-
-    logout = (evt) => {
+    const logout = (evt) => {
+        const cookies = new Cookies();
         evt.preventDefault()
-        this.handleSessionChange("", false)
+        handleSessionChange("", false)
         cookies.remove('token', {path: '/'});
-        this.props.navigate("/");
+        navigate("/");
     }
 
-    handleSessionChange = (token, signed) => {
-        this.props.session.handleSessionChange(token, signed)
+    const handleSessionChange = (token, signed) => {
+        session.handleSessionChange(token, signed)
     }
+
+    return (<AuthContext.Consumer>
+        {session => <div className="col mt-3 text-end">
+            {session.signed ? <Link to={"/logout"} onClick={logout}>Logout</Link> : <Link to={"/login"}>Login</Link>}
+        </div>}
+    </AuthContext.Consumer>);
+
 
 }
 
-function withNavigate(Component) {
-    function ComponentWithNavigate(props) {
-        const navigate = useNavigate();
-        return <Component {...props} navigate={navigate}/>
-    }
-
-    return ComponentWithNavigate
-}
-
-export default withNavigate(LoginMenu);
+export default LoginMenu;

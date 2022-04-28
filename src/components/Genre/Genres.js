@@ -3,7 +3,6 @@ import {Link} from "react-router-dom";
 import ShelfService from "../../services/ShelfService";
 
 const Genres = () => {
-
     const [genres, setGenres] = useState([])
     const [error, setError] = useState("")
 
