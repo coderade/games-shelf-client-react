@@ -5,6 +5,7 @@ import {AuthContext} from "./contexts/AuthContext";
 import Navbar from "./components/Navbar";
 import Cookies from 'universal-cookie';
 import LoginMenu from "./components/Login/LoginMenu";
+import {ShelfApi} from "./services/Api";
 
 const cookies = new Cookies();
 
@@ -33,6 +34,7 @@ export default class App extends Component {
         const token = cookies.get('token');
         if (token) {
             this.setState({session: {signed: true, token: token}})
+            ShelfApi.defaults.headers.common['Authorization'] = `Bearer ${token}`;
         }
     }
 
